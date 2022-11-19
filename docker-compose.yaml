@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:5.0
+    environment:
+      - MONGODB_CONNSTRING=mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority
+    ports: 
+      - 27017:27017
+  webapp:
+    build: ./web-app
+    ports:
+      - "3000:5000"
