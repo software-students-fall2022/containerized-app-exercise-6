@@ -12,7 +12,7 @@ db=client["Team6"]
 
 @app.route('/')
 def home():
-    return render_template('photo_demo.html')
+    return render_template('/common/layout.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
