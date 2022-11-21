@@ -12,7 +12,7 @@ db=client["Team6"]
 
 @app.route('/')
 def home():
-    return render_template('/photo/photo_demo.html')
+    return render_template('/common/layout.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -27,6 +27,6 @@ def upload():
     db.Image.insert_one(doc) # insert a new document
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
     '''
-    return render_template('/photo/photo_response_demo.html', imgBase64 = photo)
+    return render_template('photo/photo_response_demo.html', imgBase64 = docs)
 
 app.run(debug = True)

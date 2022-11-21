@@ -5,15 +5,13 @@
         <title>PhotoResponseDemo</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/css/photo_demo.css">
+        <link rel="stylesheet" href="../../static/css/photo_demo.css">
     </head>
 
     <body>
         <div>
-            <p>Response</p>
-            {% for doc in imgBase64 %}
-            <img src="{{doc.Image}}"/>
-            {%endfor%}
+            <p>Response</p>      
+            <img src="{{imgBase64}}"/>
           </div>
 
     </body>      
