@@ -16,6 +16,10 @@ db=client["Team6"]
 def home():
     return render_template('/photo/photo_demo.html')
 
+@index_page.route("/gallery")
+def gallery():
+    return ""
+
 @index_page.route('/upload', methods=['POST'])
 def upload():
     photo = request.form.get('photo')
@@ -30,3 +34,4 @@ def upload():
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
     '''
     return render_template('/photo/photo_response_demo.html', imgBase64 = photo)
+
