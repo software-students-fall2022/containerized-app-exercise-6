@@ -1,6 +1,6 @@
 import pymongo
 from bson.objectid import ObjectId
-from flask import Flask, render_template, request, redirect, url_for, make_response, session, flash
+from flask import Flask, render_template, request, Blueprint
 import datetime
 
 
@@ -9,6 +9,14 @@ app.secret_key = "secret key"
 
 client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
 db=client["Team6"]
+
+index_page = Blueprint( "index_page", __name__)
+
+@index_page.route("/")
+def index_page_index():
+    return "indexpage"
+
+app.register_blueprint( index_page, url_prefix = "/" )
 
 @app.route('/')
 def home():

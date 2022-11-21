@@ -2,13 +2,15 @@ import pymongo
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request, redirect, url_for, make_response, session, flash
 import datetime
-
+import os
 
 app = Flask(__name__)
 app.secret_key = "secret key"
 
 client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
 db=client["Team6"]
+
+app.config.from_pyfile( "config/base_setting.py" )
 
 @app.route('/')
 def home():
