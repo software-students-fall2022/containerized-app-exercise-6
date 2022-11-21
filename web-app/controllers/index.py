@@ -25,13 +25,13 @@ def upload():
     photo = request.form.get('photo')
     #machine learning stuff here
     #save image to Mongodb
-    '''
+
     doc = {
             "Image": photo,
             "created_at": datetime.datetime.utcnow()
     }
     db.Image.insert_one(doc) # insert a new document
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-    '''
+
     return render_template('/photo/photo_response_demo.html', imgBase64 = photo)
 
