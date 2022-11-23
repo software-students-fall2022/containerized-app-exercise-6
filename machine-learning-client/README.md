@@ -16,6 +16,7 @@ Due to the compability issues of the machine-learning library, we suggest you to
    .venv\Scripts\activate.ps1
    ```
 
+
 3. IMPORTANT: Install cmake to your device before installing requirements.txt!
    
    - For Mac or Linux:
