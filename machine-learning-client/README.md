@@ -19,11 +19,6 @@ Due to the compability issues of the machine-learning library, we suggest you to
 
 3. IMPORTANT: Install cmake to your device before installing requirements.txt!
    
-   - For Mac or Linux:
-    ```
-    brew install cmake
-    ```
-   - For Windows:
     ```
     pip3 install cmake                                                                  
     ```
