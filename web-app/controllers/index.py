@@ -32,17 +32,55 @@ def compute_percentage(docs):
 
     return output
 
+def compute_mean(docs):
+
+    total=0
+    count = 0
+
+
+    for doc in docs:
+
+        
+        count += 1
+
+    output=total/count
+
+    return output
+
+
+def find_max(docs):
+
+    count = 0
+
+    count_array=[0,0,0,0,0,0,0,0]
+    output=[]
+
+    for doc in docs:
+
+        count_array[doc['emotion']]+=1
+        count += 1
+
+    max = 0
+    for c in range(len(count_array)):
+        if (count_array[c] > max):
+            max = count_array[c]
+
+
+    for i in range(len(count_array)):
+        if (count_array[i] == max):
+            output.append(i)
+
+    return output
 
 @index_page.route('/')
 def home():
 
     docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
-    output=compute_percentage(docs)
+    output=find_max(docs)
 
     for o in range(len(output)):
-
-        print("The number of "+str(o)+" emotion is "+str(output[o]))
+            print("The max numbr of emotion is "+str(output[o]))
 
     return render_template('/photo/test_result.html', docs = output)
 
