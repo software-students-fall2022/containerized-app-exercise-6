@@ -27,7 +27,7 @@ def compute_percentage(docs):
     output=[0,0,0,0,0,0,0,0]
 
     for c in range(len(count_array)):
-        
+
         output[c]=count_array[c]/total
 
     return output
@@ -42,7 +42,7 @@ def home():
 
     for o in range(len(output)):
 
-        print("The number of "+str(o)+"emotion is "+str(output[o]))
+        print("The number of "+str(o)+" emotion is "+str(output[o]))
 
     return render_template('/photo/test_result.html', docs = output)
 
