@@ -12,14 +12,47 @@ app.secret_key = "secret key"
 client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
 db=client["Team6"]
 
+def compute_percentage(docs):
+
+    total=0
+
+    count_array=[0,0,0,0,0,0,0,0]
+
+    for doc in docs:
+
+        total+=1
+
+        count_array[doc['emotion']]+=1
+
+    output=[0,0,0,0,0,0,0,0]
+
+    for c in range(len(count_array)):
+        
+        output[c]=count_array[c]/total
+
+    return output
+
+
 @index_page.route('/')
 def home():
-    return render_template('/photo/photo_demo.html')
+
+    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+
+    output=compute_percentage(docs)
+
+    for o in range(len(output)):
+
+        print("The number of "+str(o)+"emotion is "+str(output[o]))
+
+    return render_template('/photo/test_result.html', docs = output)
+
+    #return render_template('/photo/photo_demo.html')
 
 @index_page.route("/gallery")
 def gallery():
     return ""
 
+'''
 @index_page.route('/upload', methods=['POST'])
 def upload():
     photo = request.form.get('photo')
@@ -34,4 +67,4 @@ def upload():
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
     return render_template('/photo/photo_response_demo.html', imgBase64 = photo)
-
+'''
