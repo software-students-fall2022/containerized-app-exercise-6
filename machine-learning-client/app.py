@@ -7,4 +7,5 @@ app = Flask(__name__)
 app.register_blueprint( gallery_page,url_prefix = "/gallery" )
 app.register_blueprint( index_page )
 
-app.run(debug = True)
+if __name__ == '__main__':
+     app.run(host='127.0.0.1', port=7001, debug=True)
