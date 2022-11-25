@@ -1,177 +1,117 @@
 import pymongo
-from flask import Flask, render_template, request, Blueprint, redirect, url_for, make_response, session, flash
 from bson.objectid import ObjectId
-import datetime
-import os
+from flask import Flask, render_template, request, Blueprint, redirect, url_for, make_response, session, flash
 import face_recognition
+import os
 import matplotlib.pyplot as plt 
 from PIL import Image, ImageDraw
 from io import BytesIO
-import io
 import base64
 import re
-import numpy
 from hsemotion.facial_emotions import HSEmotionRecognizer
 from numpy import asarray
 
-# create a Blueprint object
-index_page = Blueprint( "index_page", __name__ )
 
-# instantiate an app object
+index_page = Blueprint( "index_page", __name__ )
 app = Flask(__name__)
-# set up secrete_key for this object
 app.secret_key = "secret key"
-app.register_blueprint(index_page)
-# connect to mongoDB client
 client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
-# access db by dbname "Team6"
 db=client["Team6"]
+
 
 @index_page.route('/')
 def home():
-    return render_template("/photo/photo_demo.html")
+    return render_template('/photo/main_page.html')
 
-@index_page.route("/gallery")
-def gallery():
-    return
+@index_page.route('/back', methods=['GET'])
+def back():
+    return redirect(url_for("index_page.home"))
 
-
-def face_detect(image_data):
-    image = face_recognition.load_image_file(BytesIO(base64.b64decode(image_data)))
-    face_locations = face_recognition.face_locations(image) 
+def face_detect(image_bytes):
+    image = None
+    try:
+        image = face_recognition.load_image_file(image_bytes)
+    except:
+        return None
     
+    
+    face_locations = face_recognition.face_locations(image,1,"cnn") 
+    result = []
+    imgs = []
     #test code, can be removed
-    #print("I found {} face(s) in this photograph.".format(len(face_locations)))
+  
     for face_location in face_locations:
         top, right, bottom, left = face_location
-        #print("A face is located at pixel location Top: {}, Left: {}, Bottom: {}, Right: {}".format(top, left, bottom, right))
-
-        # get face
+        print("A face is located at pixel location Top: {}, Left: {}, Bottom: {}, Right: {}".format(top, left, bottom, right))
         face_image = image[top:bottom, left:right]
-        image = Image.fromarray(face_image)
-      
-        # pil_image.show()
-        #plt.imshow(image)
-        #plt.axis('off')    
-        #plt.show()
+        imgs.append(Image.fromarray(face_image))
+       
    
-    if(len(face_locations) > 0):
-        buffer = BytesIO()
-        image.save(buffer,format="PNG")                  
-        myimage = buffer.getvalue()   
-        myimage = "data:image/png;base64," + base64.b64encode(myimage).decode('utf-8')
+    if(len(imgs) > 0):
+        for img in imgs:
+            buffer = BytesIO()
+            img.save(buffer,format="PNG")                  
+            myimage = buffer.getvalue()   
+            myimage = "data:image/png;base64," + base64.b64encode(myimage).decode('utf-8')
+            result.append(myimage)
         
-        return myimage
-    return None
-
-def face_features(image_data):
-    image = face_recognition.load_image_file(BytesIO(base64.b64decode(image_data)))
-    face_landmarks_list = face_recognition.face_landmarks(image)
-    
-    pil_image = Image.fromarray(image)
-    d = ImageDraw.Draw(pil_image)
-    
-    for face_landmarks in face_landmarks_list:
-        for facial_feature in face_landmarks.keys():
-            d.line(face_landmarks[facial_feature], width=5)
-
-    if(len(face_landmarks_list) > 0):
-        buffer = BytesIO()
-        pil_image.save(buffer,format="PNG")                  
-        myimage = buffer.getvalue()   
-        myimage = "data:image/png;base64," + base64.b64encode(myimage).decode('utf-8')
         
-        return myimage
-    return None
-    
+    return result
+   
 
-def face_color(image_data):
-    image = face_recognition.load_image_file(BytesIO(base64.b64decode(image_data)))
-     
-    face_landmarks_list = face_recognition.face_landmarks(image)
 
-    pil_image = Image.fromarray(image)
-
-    # draw
-    for face_landmarks in face_landmarks_list:
-        d = ImageDraw.Draw(pil_image, 'RGBA')
-
-        # eyebrow
-        d.polygon(face_landmarks['left_eyebrow'], fill=(68, 54, 39, 128))
-        d.polygon(face_landmarks['right_eyebrow'], fill=(68, 54, 39, 128))
-        d.line(face_landmarks['left_eyebrow'], fill=(68, 54, 39, 150), width=5)
-        d.line(face_landmarks['right_eyebrow'], fill=(68, 54, 39, 150), width=5)
-
-        # lip
-        d.polygon(face_landmarks['top_lip'], fill=(150, 0, 0, 128))
-        d.polygon(face_landmarks['bottom_lip'], fill=(150, 0, 0, 128))
-        d.line(face_landmarks['top_lip'], fill=(150, 0, 0, 64), width=8)
-        d.line(face_landmarks['bottom_lip'], fill=(150, 0, 0, 64), width=8)
-
-        # eye
-        d.polygon(face_landmarks['left_eye'], fill=(255, 255, 255, 30))
-        d.polygon(face_landmarks['right_eye'], fill=(255, 255, 255, 30))
-
-        # eye outline
-        d.line(face_landmarks['left_eye'] + [face_landmarks['left_eye'][0]], fill=(0, 0, 0, 110), width=6)
-        d.line(face_landmarks['right_eye'] + [face_landmarks['right_eye'][0]], fill=(0, 0, 0, 110), width=6)
-    
-    
-    if(len(face_landmarks_list) > 0):
-        buffer = BytesIO()
-        pil_image.save(buffer,format="PNG")                  
-        myimage = buffer.getvalue()   
-        myimage = "data:image/png;base64," + base64.b64encode(myimage).decode('utf-8')
-        
-        return myimage
-    return None
-
-def get_emotion(image):
+def get_emotion(image_bytes):
   model_name='enet_b0_8_best_afew'
   fer=HSEmotionRecognizer(model_name=model_name,device='cpu')
   
-  msg = base64.b64decode(image)
-  buf = io.BytesIO(msg)
-  img = Image.open(buf).convert('RGB')
-  
-  print(img)
-  
-  # asarray() class is used to convert
-  # PIL images into NumPy arrays
+  img = Image.open(image_bytes).convert('RGB')
   numpydata = asarray(img)
    
-  
-  
   emotion,scores=fer.predict_emotions(numpydata,logits=True)
   return emotion
   
 
+def face_detect_with_emotions(image_bytes):
+    imgs = face_detect(image_bytes)   
+    result = []
+    
+    if(imgs is not None and len(imgs) > 0):
+        for img in imgs:
+            raw = re.sub('^data:image/.+;base64,', '', img)
+            raw = BytesIO(base64.b64decode(raw))
+            emotion = get_emotion(raw)
+            result.append({"img":img,"emotion":emotion})
+        return result
+    else:
+        return None
+
+
 @index_page.route('/upload', methods=['POST'])
 def upload():
-    photo = request.form.get('photo')
     
+    photo = request.form.get('photo') #SAVE THIS TO DATABASE (ORIGINAL PHOTO)
+   
+    if(photo == None):
+        return render_template('/photo/result_page.html', results=None)
     
-    #print(photo)
-    #machine learning stuff here
-    #save image to Mongodb
- 
+    raw_image = re.sub('^data:image/.+;base64,', '', photo)
+    image_bytes = BytesIO(base64.b64decode(raw_image))
     
-    #transform photo to bytes for machine learning
-    image_data = re.sub('^data:image/.+;base64,', '', photo)
-    
-    """
-    doc = {
+    results = face_detect_with_emotions(image_bytes)
+    if(results is not None):
+        """
+        for result in results:
+            doc = {
             "Image": photo,
             "created_at": datetime.datetime.utcnow()
-    }
-    db.Image.insert_one(doc) # insert a new document
-    docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-    """
-    emotion = get_emotion(image_data)
-    #img = face_detect(image_data)   
-    img = face_features(image_data)
-    #img = face_color(image_data)
+        }
+        db.Image.insert_one(doc) # insert a new document
+        docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestam
+        """
+        return render_template('/photo/result_page.html', results=results)
+    else:
+        return render_template('/photo/result_page.html', results=None)
     
-    return render_template('/photo/photo_response_demo.html', imgBase64 = img, emotion = emotion)
+   
     
 
