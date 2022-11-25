@@ -1,5 +1,3 @@
-
-
 # public config
 
 DOMAIN = {
