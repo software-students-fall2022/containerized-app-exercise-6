@@ -22,6 +22,10 @@ Due to the compability issues of the machine-learning library, we suggest you to
     ```
     pip3 install cmake                                                                  
     ```
+    for mac:
+    ```
+    brew install cmake
+    ```
     (for some reasons, the above command must be performed before installing requirements.txt. It even doen't work if you put it in requirements.txt)
 
 4. Install requirements.txt
@@ -33,5 +37,5 @@ Due to the compability issues of the machine-learning library, we suggest you to
    ```
    set FLASK_APP=app.py
    set FLASK_ENV=development
-   flask run
+   python -m flask run
    ```

@@ -5,8 +5,20 @@ services:
     environment:
       - MONGODB_CONNSTRING=mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority
     ports: 
-      - 27017:27017
+      - 27018:27018
   webapp:
     build: ./web-app
     ports:
-      - "3000:5000"
+      - "6001:6001"
+
+
+
+  mlclient:
+    build: ./machine-learning-client
+    ports:
+      - "7001:7001"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+    dns:
+      - "8.8.8.8"
