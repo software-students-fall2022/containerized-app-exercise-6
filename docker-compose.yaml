@@ -11,7 +11,14 @@ services:
     ports:
       - "6001:6001"
 
+
+
   mlclient:
     build: ./machine-learning-client
     ports:
       - "7001:7001"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+    dns:
+      - "8.8.8.8"
