@@ -7,7 +7,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/T
         <head>
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <title>PhotoDemo</title>
+            <title>MainPage</title>
             <meta name="description" content="">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="stylesheet" href="../../static/css/photo_demo.css">
@@ -27,7 +27,17 @@ https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/T
 
             <form method="POST" , action="/upload">
                 <input type="hidden" name="photo" id="photo_upload"/>
-                <input class="submit_photo_btn" type="submit" value="Submit Photo"/>
+                <input id="submit_photo_btn" type="submit" value="Submit Photo"/>
+                <div id="wait_text" style="display: none;">Please wait...</div>
+                <script type = "text/javascript">
+                    const btn = document.getElementById('submit_photo_btn');
+                    btn.addEventListener('click', function() {
+                        btn.style.display = 'none';
+                        // 👇️ show div
+                        const box = document.getElementById('wait_text');
+                        box.style.display = 'block';
+                    });
+                </script>
             </form>
         </div>
         <script type="text/javascript">

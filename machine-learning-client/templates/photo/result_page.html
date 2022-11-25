@@ -1,0 +1,36 @@
+<html>
+    {% block content %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ResultPage</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../static/css/photo_demo.css">
+    </head>
+
+    <body>
+        {%if results is not none%}
+            <div>
+                <p>Results:</p>      
+                {% for result in results %}
+                <tr>
+                    <img src="{{result.img}}"/>
+                    <p>Emotion: {{result.emotion}}</p>
+                </tr>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No face detected</p>
+        {% endif %}
+        
+        <form method="GET" , action="/back">
+            <input id="back_btn" type="submit" value="Back"/>
+        </form>
+        
+    </body>      
+{% endblock %}
+</html>
+
+
+

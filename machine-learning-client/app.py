@@ -1,7 +1,7 @@
 from flask import Flask
 import face_recognition
 from controllers.index import index_page
-from controllers.gallery import gallery_page
+
 
 
 import os
@@ -13,7 +13,6 @@ from io import BytesIO
 
 app = Flask(__name__)
 
-app.register_blueprint( gallery_page,url_prefix = "/gallery" )
 app.register_blueprint( index_page )
 
 
