@@ -1,4 +1,4 @@
-name: Build & test
+name: web-app
 on: [push]
 jobs:
   build:
@@ -6,7 +6,7 @@ jobs:
     defaults:
       run:
         working-directory: ./web-app
-    timeout-minutes: 20
+    timeout-minutes: 60
     strategy:
       matrix:
         python-version: ["3.8", "3.10"]
