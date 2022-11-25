@@ -33,5 +33,5 @@ Due to the compability issues of the machine-learning library, we suggest you to
    ```
    set FLASK_APP=app.py
    set FLASK_ENV=development
-   flask run
+   python -m flask run
    ```
