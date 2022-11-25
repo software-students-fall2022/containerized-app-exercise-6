@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from flask import Flask, render_template, request, Blueprint, redirect, url_for, make_response, session, flash
 import datetime
 import os
+import sys
 
 index_page = Blueprint( "index_page", __name__ )
 
@@ -12,7 +13,9 @@ app.secret_key = "secret key"
 client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
 db=client["Team6"]
 
-def compute_percentage(docs):
+def compute_percentage():
+
+    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
     total=0
 
@@ -32,15 +35,50 @@ def compute_percentage(docs):
 
     return output
 
-def compute_mean(docs):
+def compute_median():
+
+    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
     total=0
-    count = 0
 
+    count_array=[0,0,0,0,0,0,0,0]
 
     for doc in docs:
 
-        
+        total+=1
+
+        count_array[doc['emotion']]+=1
+
+    index=total / 2
+
+    count=0
+
+    for c in count_array:
+
+        if (index-c<=0):
+
+            output=count
+
+        else:
+
+            index=index-c
+
+            count+=1
+
+    return output
+
+def compute_mean():
+
+    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+
+    total=0
+
+    count = 0
+
+    for doc in docs:
+
+        total+=doc['emotion']
+
         count += 1
 
     output=total/count
@@ -48,7 +86,9 @@ def compute_mean(docs):
     return output
 
 
-def find_max(docs):
+def find_max():
+
+    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
     count = 0
 
@@ -72,17 +112,53 @@ def find_max(docs):
 
     return output
 
-@index_page.route('/')
-def home():
+def find_min():
 
     docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
-    output=find_max(docs)
+    count = 0
 
-    for o in range(len(output)):
-            print("The max numbr of emotion is "+str(output[o]))
+    count_array=[0,0,0,0,0,0,0,0]
+    output=[]
 
-    return render_template('/photo/test_result.html', docs = output)
+    for doc in docs:
+
+        count_array[doc['emotion']]+=1
+        count += 1
+
+    min = sys.maxsize
+    for c in range(len(count_array)):
+        if (count_array[c] < min):
+            min = count_array[c]
+
+    for i in range(len(count_array)):
+        if (count_array[i] == min):
+            output.append(i)
+
+    return output
+
+@index_page.route('/')
+def home():
+
+    percentage=compute_percentage()
+
+    mean=compute_mean()
+
+    median=compute_median()
+
+    MaxNumber=find_max()
+
+    MinNumber=find_min()
+
+    dictionary={
+        "Percentage":percentage,
+        "Mean":mean,
+        "Median":median,
+        "MaxNumber of emotion":MaxNumber,
+        "MinNumber of emotion": MinNumber
+    }
+
+    return render_template('/photo/test_result.html', docs = dictionary)
 
     #return render_template('/photo/photo_demo.html')
 
