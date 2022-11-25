@@ -16,7 +16,20 @@ Build a containerized app that uses machine learning. See [instructions](./instr
 ```
 docker run --name mongodb -d mongo
 ```
-2. Run the docker-compose coomand to start and stop all containers together
+2. To start all containers together
 ```
-docker-compose up
+docker compose up
 ```
+3. To start all containers together at back-end
+```
+docker compose up -d
+```
+4. To end all containers together
+```
+docker compose down
+```
+5. To restart all containers together
+```
+docker compose up --build
+```
+

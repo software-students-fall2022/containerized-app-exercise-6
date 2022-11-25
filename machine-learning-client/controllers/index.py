@@ -1,10 +1,9 @@
 import pymongo
-from bson.objectid import ObjectId
 from flask import Flask, render_template, request, Blueprint, redirect, url_for, make_response, session, flash
+from bson.objectid import ObjectId
 import datetime
 import os
 import face_recognition
-import os
 import matplotlib.pyplot as plt 
 from PIL import Image, ImageDraw
 from io import BytesIO
@@ -14,21 +13,27 @@ import re
 import numpy
 from hsemotion.facial_emotions import HSEmotionRecognizer
 from numpy import asarray
+
+# create a Blueprint object
 index_page = Blueprint( "index_page", __name__ )
 
+# instantiate an app object
 app = Flask(__name__)
+# set up secrete_key for this object
 app.secret_key = "secret key"
-
+app.register_blueprint(index_page)
+# connect to mongoDB client
 client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
+# access db by dbname "Team6"
 db=client["Team6"]
 
 @index_page.route('/')
 def home():
-    return render_template('/photo/photo_demo.html')
+    return render_template("/photo/photo_demo.html")
 
 @index_page.route("/gallery")
 def gallery():
-    return ""
+    return
 
 
 def face_detect(image_data):
@@ -87,7 +92,7 @@ def face_color(image_data):
 
     pil_image = Image.fromarray(image)
 
-    # 绘图
+    # draw
     for face_landmarks in face_landmarks_list:
         d = ImageDraw.Draw(pil_image, 'RGBA')
 
