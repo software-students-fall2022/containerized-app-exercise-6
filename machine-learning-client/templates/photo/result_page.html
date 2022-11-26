@@ -1,5 +1,6 @@
 <html>
-    {% block content %}
+{% extends "common/layout.html"%}    
+{% block content %}
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,19 +12,25 @@
 
     <body>
         {%if results is not none%}
-            <div>
-                <p>Results:</p>      
-                {% for result in results %}
-                <tr>
-                    <img src="{{result.img}}"/>
-                    <p>Emotion: {{result.emotion}}</p>
-                </tr>
-                {% endfor %}
+        <h1>Results:</h1>
+            <div>  
+                <table style="width:50%; border: 1px solid black;">
+                    <tr>
+                        <th>Image</th>
+                        <th>Emotion</th>
+                    </tr>      
+                    {% for result in results %}
+                    <tr>
+                        <td><img src="{{result.img}}"/></td>
+                        <td><p>{{result.emotion}}</p></td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
         {% else %}
             <p>No face detected</p>
         {% endif %}
-        
+        <br>
         <form method="GET" , action="/back">
             <input id="back_btn" type="submit" value="Back"/>
         </form>
