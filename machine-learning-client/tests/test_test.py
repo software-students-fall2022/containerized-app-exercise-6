@@ -11,23 +11,23 @@ import face_recognition
 from hsemotion.facial_emotions import HSEmotionRecognizer
 
 
-with open("test_group.jpg", "rb") as group_img:
+with open("/tests/test_group.jpg", "rb") as group_img:
     test_raw_group_img = base64.b64encode(group_img.read())
 test_group_img_bytes = BytesIO(base64.b64decode(test_raw_group_img))
 
-with open("test_happy.jpg", "rb") as happy_img:
+with open("/tests/test_happy.jpg", "rb") as happy_img:
     test_raw_happy_img = base64.b64encode(happy_img.read())
 test_happy_img_bytes = BytesIO(base64.b64decode(test_raw_happy_img))
 
-with open("test_sad.jpg", "rb") as sad_img:
+with open("/tests/test_sad.jpg", "rb") as sad_img:
     test_raw_sad_img = base64.b64encode(sad_img.read())
 test_sad_img_bytes = BytesIO(base64.b64decode(test_raw_sad_img))
 
-with open("test_fear.jpg", "rb") as fear_img:
+with open("/tests/test_fear.jpg", "rb") as fear_img:
     test_raw_fear_img = base64.b64encode(fear_img.read())
 test_fear_img_bytes = BytesIO(base64.b64decode(test_raw_fear_img))
 
-with open("test_noface.jpg", "rb") as noface_img:
+with open("/tests/test_noface.jpg", "rb") as noface_img:
     test_raw_noface_img = base64.b64encode(noface_img.read())
 test_noface_img_bytes = BytesIO(base64.b64decode(test_raw_noface_img))
 
