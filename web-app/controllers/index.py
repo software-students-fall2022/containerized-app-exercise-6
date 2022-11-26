@@ -26,7 +26,18 @@ db=client["Team6"]
 
 def compute_percentage():
 
-    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+    emotion_dict={
+        'Anger':0,
+        'Contempt':1,
+        'Disgust':2,
+        'Fear':3,
+        'Happiness':4,
+        'Neutral':5,
+        'Sadness':6,
+        'Surprise':7
+    }
+
+    docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
     total=0
 
@@ -34,9 +45,13 @@ def compute_percentage():
 
     for doc in docs:
 
-        total+=1
+        for result in doc['results']:
+            
+            total+=1
+            
+            emotion=emotion_dict[result['emotion']]
 
-        count_array[doc['emotion']]+=1
+            count_array[emotion]+=1
 
     output=[0,0,0,0,0,0,0,0]
 
@@ -153,6 +168,22 @@ def home():
 
     percentage=compute_percentage()
 
+    return render_template('/photo/test_result.html', docs = percentage)
+    
+'''
+    doc = {
+            "original": 'photo',
+            "results": [{"img":'img',"emotion":'Anger'},{"img":'img',"emotion":'Contempt'},{"img":'img',"emotion":'Disgust'},
+            {"img":'img',"emotion":'Fear'},{"img":'img',"emotion":'Happiness'},{"img":'img',"emotion":'Neutral'},{"img":'img',"emotion":'Sadness'},
+            {"img":'img',"emotion":'Happiness'},{"img":'img',"emotion":'Surprise'}]
+        }
+
+    db.Image.insert_one(doc)
+'''
+
+'''
+    percentage=compute_percentage()
+
     mean=compute_mean()
 
     median=compute_median()
@@ -168,8 +199,8 @@ def home():
         "MaxNumber of emotion":MaxNumber,
         "MinNumber of emotion": MinNumber
     }
-
-    return render_template('/photo/test_result.html', docs = dictionary)
+'''
+    #return render_template('/photo/test_result.html', docs = "hahaha")
 
     #return render_template('/photo/photo_demo.html')
 
