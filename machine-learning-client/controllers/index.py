@@ -11,11 +11,23 @@ import re
 from hsemotion.facial_emotions import HSEmotionRecognizer
 from numpy import asarray
 
+def is_docker():
+    path = '/proc/self/cgroup'
+    return (
+        os.path.exists('/.dockerenv') or
+        os.path.isfile(path) and any('docker' in line for line in open(path))
+    )
 
 index_page = Blueprint( "index_page", __name__ )
 app = Flask(__name__)
 app.secret_key = "secret key"
-client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
+
+if(is_docker()):
+    client = pymongo.MongoClient("db", 27017)
+else:
+    client = pymongo.MongoClient("127.0.0.1", 27017)
+   
+   
 db=client["Team6"]
 
 
@@ -98,16 +110,15 @@ def upload():
     image_bytes = BytesIO(base64.b64decode(raw_image))
     
     results = face_detect_with_emotions(image_bytes)
+    
+    
+    
     if(results is not None):
-        """
-        for result in results:
-            doc = {
-            "Image": photo,
-            "created_at": datetime.datetime.utcnow()
+        doc = {
+            "original": photo,
+            "results": results
         }
-        db.Image.insert_one(doc) # insert a new document
-        docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestam
-        """
+        db.Image.insert_one(doc)
         return render_template('/photo/result_page.html', results=results)
     else:
         return render_template('/photo/result_page.html', results=None)
