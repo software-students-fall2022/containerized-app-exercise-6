@@ -16,7 +16,7 @@ def test_percentage():
 
     output=index.compute_percentage()
 
-    expected_result=[0,0.125,0.125,0.125,0.125,0.125,0.125,0.25]
+    expected_result=[0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.2222222222222222, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111]
 
     for out in range(len(output)):
 
@@ -30,12 +30,24 @@ def test_find_min():
 
     output=index.find_min()
 
-    expected_result=[0]
+    expected_result=['Happiness']
 
     for out in range(len(output)):
 
         assert output[out]==expected_result[out], "The output min is not correct"
 
+def test_find_max():
 
+    client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
+
+    db=client["Team6"]
+
+    output=index.find_max()
+
+    expected_result=['Anger', 'Contempt', 'Disgust', 'Fear', 'Neutral', 'Sadness', 'Surprise']
+
+    for out in range(len(output)):
+
+        assert output[out]==expected_result[out], "The output max is not correct"
     
 
