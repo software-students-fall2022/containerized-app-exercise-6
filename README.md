@@ -1,6 +1,9 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9335238&assignment_repo_type=AssignmentRepo)
 # Containerized App Exercise
 
+![Workflow Status](https://github.com/software-students-fall2022/containerized-app-exercise-6/machine-learning-client/actions/workflows/python-package.yml/badge.svg?event=push)
+![Workflow Status](https://github.com/software-students-fall2022/containerized-app-exercise-6/web-app/actions/workflows/python-package.yml/badge.svg?event=push)
+
 Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
 
 
