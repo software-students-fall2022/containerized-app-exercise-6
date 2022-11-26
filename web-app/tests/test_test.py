@@ -30,7 +30,8 @@ def test_find_min():
 
     output=index.find_min()
 
-    expected_result=['Happiness']
+    expected_result=['Anger', 'Contempt', 'Disgust', 'Fear', 'Neutral', 'Sadness', 'Surprise']
+    
 
     for out in range(len(output)):
 
@@ -44,7 +45,7 @@ def test_find_max():
 
     output=index.find_max()
 
-    expected_result=['Anger', 'Contempt', 'Disgust', 'Fear', 'Neutral', 'Sadness', 'Surprise']
+    expected_result=['Happiness']
 
     for out in range(len(output)):
 
