@@ -60,7 +60,7 @@ def compute_percentage():
         output[c]=count_array[c]/total
 
     return output
-
+'''
 def compute_median():
 
     docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
@@ -111,20 +111,33 @@ def compute_mean():
 
     return output
 
-
+'''
 def find_max():
 
-    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+    emotion_dict={
+        'Anger':0,
+        'Contempt':1,
+        'Disgust':2,
+        'Fear':3,
+        'Happiness':4,
+        'Neutral':5,
+        'Sadness':6,
+        'Surprise':7
+    } # sort in descending order of created_at timestamp
 
-    count = 0
+    docs = db.Image.find({}).sort("created_at", -1)
+
 
     count_array=[0,0,0,0,0,0,0,0]
     output=[]
 
     for doc in docs:
 
-        count_array[doc['emotion']]+=1
-        count += 1
+        for result in doc['results']:
+            
+            emotion=emotion_dict[result['emotion']]
+
+            count_array[emotion]+=1
 
     max = 0
     for c in range(len(count_array)):
@@ -135,12 +148,30 @@ def find_max():
     for i in range(len(count_array)):
         if (count_array[i] == max):
             output.append(i)
+    
+    key_list = list(emotion_dict.keys())
+    val_list = list(emotion_dict.values())
 
+
+    for j in range(len(output)):
+        position = val_list.index(output[j])
+        output[j] = key_list[position]
     return output
 
 def find_min():
 
-    docs = db.result.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+    emotion_dict={
+        'Anger':0,
+        'Contempt':1,
+        'Disgust':2,
+        'Fear':3,
+        'Happiness':4,
+        'Neutral':5,
+        'Sadness':6,
+        'Surprise':7
+    } # sort in descending order of created_at timestamp
+
+    docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
     count = 0
 
@@ -149,8 +180,11 @@ def find_min():
 
     for doc in docs:
 
-        count_array[doc['emotion']]+=1
-        count += 1
+        for result in doc['results']:
+            
+            emotion=emotion_dict[result['emotion']]
+
+            count_array[emotion]+=1
 
     min = sys.maxsize
     for c in range(len(count_array)):
@@ -161,14 +195,25 @@ def find_min():
         if (count_array[i] == min):
             output.append(i)
 
+    key_list = list(emotion_dict.keys())
+    val_list = list(emotion_dict.values())
+
+
+    for j in range(len(output)):
+        position = val_list.index(output[j])
+        output[j] = key_list[position]
+    return output
+
     return output
 
 @index_page.route('/')
 def home():
 
     percentage=compute_percentage()
+    MaxNumber=find_max()
+    MinNumber=find_min()
 
-    return render_template('/photo/test_result.html', docs = percentage)
+    return render_template('/photo/test_result.html', docs = MinNumber)
     
 '''
     doc = {
