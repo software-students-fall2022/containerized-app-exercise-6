@@ -14,7 +14,7 @@ def test_percentage():
 
     db=client["Team6"]
 
-    output=index.compute_percentage()
+    output=index.compute_percentage(test=True)
 
     expected_result=[0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.2222222222222222, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111]
 
@@ -28,7 +28,7 @@ def test_find_min():
 
     db=client["Team6"]
 
-    output=index.find_min()
+    output=index.find_min(test=True)
 
     expected_result=['Anger', 'Contempt', 'Disgust', 'Fear', 'Neutral', 'Sadness', 'Surprise']
     
@@ -43,7 +43,7 @@ def test_find_max():
 
     db=client["Team6"]
 
-    output=index.find_max()
+    output=index.find_max(test=True)
 
     expected_result=['Happiness']
 
