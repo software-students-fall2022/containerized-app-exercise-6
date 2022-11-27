@@ -73,8 +73,6 @@ class Tests:
                 emotion = index.get_emotion(raw)
                 result.append({"img":img,"emotion":emotion})
             assert result==index.face_detect_with_emotions(test_group_img_bytes)
-        else:
-            assert None==index.face_detect_with_emotions(test_group_img_bytes)
 
     def test_face_detect_without_face(self):
         assert None==index.face_detect_with_emotions(test_noface_img_bytes)
