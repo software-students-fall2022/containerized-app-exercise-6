@@ -10,6 +10,7 @@ import base64
 import re
 from hsemotion.facial_emotions import HSEmotionRecognizer
 from numpy import asarray
+import datetime
 
 def is_docker():
     path = '/proc/self/cgroup'
@@ -116,7 +117,8 @@ def upload():
     if(results is not None):
         doc = {
             "original": photo,
-            "results": results
+            "results": results,
+            "created_at": datetime.datetime.utcnow()
         }
         db.Image.insert_one(doc)
         return render_template('/photo/result_page.html', results=results)
