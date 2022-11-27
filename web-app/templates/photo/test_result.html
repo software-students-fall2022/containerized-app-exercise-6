@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {{docs}}
+    {%for doc in docs%}
+    {{doc.original}}
+    {{doc.results}}
+    {{doc.Percentage}}
+    {{doc.MaxEmotion}}
+    {{doc.MinEmotion}}
+    {%endfor%}
 </head>
