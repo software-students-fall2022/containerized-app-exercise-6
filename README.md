@@ -20,7 +20,7 @@ The web app works as a dashboard that displays statistics of the emotional analy
 
 [Iris Qian](https://github.com/okkiris)
 
-[George Zhang](https://github.com/jiawei-zhang-a)
+[Jiawei Zhang](https://github.com/jiawei-zhang-a)
 
 [Sagynbek Talgatuly](https://github.com/sagynbek001)
 
