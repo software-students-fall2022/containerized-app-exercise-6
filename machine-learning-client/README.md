@@ -1,6 +1,5 @@
-# How to Install and Run the Machine Learning Client
-
-Due to the compability issues of the machine-learning library, we suggest you to run this machine learning client in a virtual environment.
+# How to Install and Run the Machine Learning Client with Venv
+If you find setting up the ML client in Docker taking too much time, you can run the ML client using virtual environments 
 
 1. Setup a Python virtual environment
    ```

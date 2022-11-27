@@ -35,7 +35,7 @@ The web app works as a dashboard that displays statistics of the emotional analy
 <br>
 <br>
 3. The ML client (if run by Docker) will run at `127.0.0.1:7001`. The webapp will run at `127.0.0.1:6001`. A database container will also be created.
-
+   
 4. In the ML client, you can take a photo (with other people) and submit. After you submit, the machine-learning algorithm will run for 5~10 seconds and upload the result to the database.
 
 # How to run Pytests
