@@ -13,8 +13,6 @@ services:
     depends_on:
       - db
 
-
-
   mlclient:
     build: ./machine-learning-client
     ports:
@@ -26,3 +24,4 @@ services:
       - "8.8.8.8"
     depends_on:
       - db
+
