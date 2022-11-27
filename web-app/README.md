@@ -3,7 +3,7 @@
    pip3 install -r requirements.txt
    ```
 
-2. Listen on 127.0.0.1:6001
+2. Listen on 127.0.0.1:5000
    ```
-    python app.py
+    python -m flask run
    ```
