@@ -14,7 +14,7 @@ def test_percentage():
 
     db=client["Team6"]
 
-    output=index.compute_percentage(test=True)
+    output=index.compute_percentage(db.TestImage)
 
     expected_result=[0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.2222222222222222, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111]
 
@@ -28,7 +28,7 @@ def test_find_min():
 
     db=client["Team6"]
 
-    output=index.find_min(test=True)
+    output=index.find_min(db.TestImage)
 
     expected_result=['Anger', 'Contempt', 'Disgust', 'Fear', 'Neutral', 'Sadness', 'Surprise']
     
@@ -43,12 +43,19 @@ def test_find_max():
 
     db=client["Team6"]
 
-    output=index.find_max(test=True)
+    output=index.find_max(db.TestImage)
 
     expected_result=['Happiness']
 
     for out in range(len(output)):
 
         assert output[out]==expected_result[out], "The output max is not correct"
-    
 
+def test_find_non_existing_collection():
+    client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
+
+    db=client["Team6"]
+    
+    output=index.compute_percentage(db.NonExist)
+    
+    assert output == [], "The output is not correct"
