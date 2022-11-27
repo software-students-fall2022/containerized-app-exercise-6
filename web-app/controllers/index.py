@@ -73,7 +73,7 @@ def compute_percentage():
 
             output_dict[key_list[position]]=output[n]
 
-        db.TestImage.update({"_id" :ObjectId(docs_id)},{"$set":{"Percentage":output_dict}})
+        db.TestImage.update_one({"_id" :ObjectId(docs_id)},{"$set":{"Percentage":output_dict}})
 
     return output
 
@@ -123,7 +123,7 @@ def find_max():
             position = val_list.index(output[j])
             output[j] = key_list[position]
 
-        db.TestImage.update({"_id" :ObjectId(docs_id)},{"$set":{"MaxEmotion":output}})
+        db.TestImage.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MaxEmotion":output}})
 
     return output
 
@@ -172,7 +172,7 @@ def find_min():
             position = val_list.index(output[j])
             output[j] = key_list[position]
 
-        db.TestImage.update({"_id" :ObjectId(docs_id)},{"$set":{"MinEmotion":output}})
+        db.TestImage.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MinEmotion":output}})
 
     return output
 
