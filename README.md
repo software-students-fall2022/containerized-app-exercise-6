@@ -24,32 +24,38 @@ The web app works as a dashboard that displays statistics of the emotional analy
 
 [Sagynbek Talgatuly](https://github.com/sagynbek001)
 
-# Mongodb
-## Setting up
-1. mongodb cluster access: create an MongoDB Atlas account
-2. create a cluster with --host=0.0.0.0 (share accesss with anyone)
-3. create databases in the cluster
-4. Put the link of the database with username and password into pymongo.MongoClient() to connect to the database
+# Running the Project
+1. Navigate to the root folder of this project, then:
+   ```
+   docker compose up
+   ```
 
-## Running
-1. Start a MongoDB container using Docker with the following command:
+2. Note that the machine-learning client has dependencies that need significant amount of time for Docker to setup (~10 minutes, depending on your Internet connection). If you don't want to wait, you can remove `mlclient` section from `docker-compose.yaml` and setup a virtural environment for the ML client by following this [instruction](https://github.com/software-students-fall2022/containerized-app-exercise-6/blob/main/machine-learning-client/README.md) (This tends to be much faster)
+   * Note that, even if you choose to run `mlclient` in a venv, it still requires the database to run in Docker
+<br>
+<br>
+3. The ML client (if run by Docker) will run at `127.0.0.1:7001`. The webapp will run at `127.0.0.1:6001`. A database container will also be created.
+
+4. In the ML client, you can take a photo (with other people) and submit. After you submit, the machine-learning algorithm will run for 5~10 seconds and upload the result to the database.
+
+# How to run Pytests
+## Webapp
+1. Navigate to web-app directory
 ```
-docker run --name mongodb -d mongo
+cd web-app
 ```
-2. To start all containers together
+2. Run:
 ```
-docker compose up
-```
-3. To start all containers together at back-end
-```
-docker compose up -d
-```
-4. To end all containers together
-```
-docker compose down
-```
-5. To restart all containers together
-```
-docker compose up --build
+python -m pytest
 ```
 
+## ML Client
+You don't need to start the database to run tests for the ML client
+1. Navigate to machine-learning-client directory
+```
+cd machine-learning-client
+```
+2. Run:
+```
+python -m pytest
+```
