@@ -20,11 +20,11 @@ if(is_docker()):
     client = pymongo.MongoClient("db", 27017)
 else:
     client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
-
+    
 
 db=client["Team6"]
 
-def compute_percentage(test):
+def compute_percentage(collection):
 
     emotion_dict={
         'Anger':0,
@@ -37,11 +37,12 @@ def compute_percentage(test):
         'Surprise':7
     }
     
-    if test is False:
-        docs = db.Image.find({}).sort("created_at", -1)
-    else:
-        docs = db.TestImage.find({}).sort("created_at", -1)# sort in descending order of created_at timestamp
-
+    docs = collection.find({}).sort("created_at", -1)
+   
+    
+    output = []
+    
+    
     for doc in docs:
         
         docs_id=doc['_id']
@@ -76,20 +77,14 @@ def compute_percentage(test):
 
             output_dict[key_list[position]]=output[n]
 
-        if test is False:
-             db.Image.update_one({"_id" :ObjectId(docs_id)},{"$set":{"Percentage":output_dict}})
-        else:
-            db.TestImage.update_one({"_id" :ObjectId(docs_id)},{"$set":{"Percentage":output_dict}})
+     
 
+        collection.update_one({"_id" :ObjectId(docs_id)},{"$set":{"Percentage":output_dict}})
     return output
 
-def find_max(test):
+def find_max(collection):
 
-    if test is False:
-        docs = db.Image.find({}).sort("created_at", -1)
-    else:
-        docs = db.TestImage.find({}).sort("created_at", -1)
-        
+    docs = collection.find({}).sort("created_at", -1)
     emotion_dict={
         'Anger':0,
         'Contempt':1,
@@ -101,7 +96,7 @@ def find_max(test):
         'Surprise':7
     }
 
-
+    output = []
 
     for doc in docs:
 
@@ -134,14 +129,12 @@ def find_max(test):
             position = val_list.index(output[j])
             output[j] = key_list[position]
 
-        if test is False:
-            db.Image.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MaxEmotion":output}})
-        else:
-            db.TestImage.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MaxEmotion":output}})
-
+    
+        
+        collection.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MaxEmotion":output}})
     return output
 
-def find_min(test):
+def find_min(collection):
 
     emotion_dict={
         'Anger':0,
@@ -153,12 +146,10 @@ def find_min(test):
         'Sadness':6,
         'Surprise':7
     }
-
-    if test is False:
-        docs = db.Image.find({}).sort("created_at", -1)
-    else:
-        docs = db.TestImage.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-
+    
+    
+    docs = collection.find({}).sort("created_at", -1)
+    output = []
 
 
     for doc in docs:
@@ -190,20 +181,18 @@ def find_min(test):
         for j in range(len(output)):
             position = val_list.index(output[j])
             output[j] = key_list[position]
+                
+      
         
-        if test is False:
-            db.Image.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MinEmotion":output}})
-        else:
-            db.TestImage.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MinEmotion":output}})
-
+        collection.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MinEmotion":output}})
     return output
 
 @index_page.route('/')
 def home():
-    
-    percentage=compute_percentage(test=False)
-    MaxNumber=find_max(test=False)
-    MinNumber=find_min(test=False)
+    collection = db.Image
+    percentage=compute_percentage(collection)
+    MaxNumber=find_max(collection)
+    MinNumber=find_min(collection)
 
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
