@@ -22,6 +22,8 @@ The web app works as a dashboard that displays statistics of the emotional analy
 
 [George Zhang](https://github.com/jiawei-zhang-a)
 
+[Sagynbek Talgatuly](https://github.com/sagynbek001)
+
 # Mongodb
 ## Setting up
 1. mongodb cluster access: create an MongoDB Atlas account
