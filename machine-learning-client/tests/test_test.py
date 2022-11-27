@@ -32,6 +32,9 @@ with open("tests/test_noface.jpg", "rb") as noface_img:
 test_noface_img_bytes = BytesIO(base64.b64decode(test_raw_noface_img))
 
 class Tests:
+    def test_face_count(self):
+        assert len(index.face_detect(test_group_img_bytes)) == 5
+    
     def test_face_detect(self):
         image = face_recognition.load_image_file(test_group_img_bytes)
         face_locations = face_recognition.face_locations(image,1,"cnn") 
@@ -49,6 +52,7 @@ class Tests:
                 myimage = "data:image/png;base64," + base64.b64encode(myimage).decode('utf-8')
                 result.append(myimage)
         assert result==index.face_detect(test_group_img_bytes)
+        
     
     def test_face_detect_load_image_fail(self):
         assert None==index.face_detect(None)
