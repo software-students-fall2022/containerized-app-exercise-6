@@ -38,6 +38,8 @@ The web app works as a dashboard that displays statistics of the emotional analy
    
 4. In the ML client, you can take a photo (with other people) and submit. After you submit, the machine-learning algorithm will run for 5~10 seconds and upload the result to the database.
 
+5. After you have some initial analysis with the ML client, you can view results in the web-app by going to `127.0.0.1:6001`. The web-app contains a gallary of all photos you took and you can view detailed analyzed results in their result pages. 
+
 # How to run Pytests
 ## Webapp
 1. Navigate to web-app directory
