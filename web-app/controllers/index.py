@@ -167,7 +167,7 @@ def find_min(collection):
 
         min = sys.maxsize
         for c in range(len(count_array)):
-            if (count_array[c] < min):
+            if (count_array[c] < min and count_array[c] > 0):
                 min = count_array[c]
 
         for i in range(len(count_array)):
