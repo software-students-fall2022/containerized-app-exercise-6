@@ -196,45 +196,4 @@ def home():
 
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
-    return render_template('/photo/photo_response_demo.html', docs = docs)
-'''
-    doc = {
-            "original": 'photo',
-            "results": [{"img":'img',"emotion":'Anger'},{"img":'img',"emotion":'Contempt'},{"img":'img',"emotion":'Disgust'},
-            {"img":'img',"emotion":'Fear'},{"img":'img',"emotion":'Happiness'},{"img":'img',"emotion":'Neutral'},{"img":'img',"emotion":'Sadness'},
-            {"img":'img',"emotion":'Happiness'},{"img":'img',"emotion":'Surprise'}]
-        }
-
-    db.TestImage.insert_one(doc)
-
-    doc = {
-            "original": 'photo',
-            "results": [{"img":'img',"emotion":'Anger'},{"img":'img',"emotion":'Neutral'},
-            {"img":'img',"emotion":'Fear'}, {"img":'img',"emotion":'Neutral'},{"img":'img',"emotion":'Sadness'}]
-        }
-
-    db.TestImage.insert_one(doc)
-'''
-
-    #return render_template('/photo/photo_demo.html')
-
-@index_page.route("/gallery")
-def gallery():
-    return ""
-
-'''
-@index_page.route('/upload', methods=['POST'])
-def upload():
-    photo = request.form.get('photo')
-    #machine learning stuff here
-    #save image to Mongodb
-
-    doc = {
-            "Image": photo,
-            "created_at": datetime.datetime.utcnow()
-    }
-    db.Image.insert_one(doc) # insert a new document
-    docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-
-    return render_template('/photo/photo_response_demo.html', imgBase64 = photo)
-'''
+    return render_template('index.html', docs = docs)
