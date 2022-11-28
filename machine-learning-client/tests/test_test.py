@@ -13,7 +13,7 @@ from hsemotion.facial_emotions import HSEmotionRecognizer
 
 with open("tests/test_group.jpg", "rb") as group_img:
     test_raw_group_img = base64.b64encode(group_img.read())
-test_group_img_bytes = BytesIO(base64.b64decode(test_raw_group_img))
+    test_group_img_bytes = BytesIO(base64.b64decode(test_raw_group_img))
 
 with open("tests/test_happy.jpg", "rb") as happy_img:
     test_raw_happy_img = base64.b64encode(happy_img.read())

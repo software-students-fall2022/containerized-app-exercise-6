@@ -112,8 +112,6 @@ def upload():
     
     results = face_detect_with_emotions(image_bytes)
     
-    
-    
     if(results is not None):
         doc = {
             "original": photo,
