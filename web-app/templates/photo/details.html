@@ -1,0 +1,74 @@
+
+{% extends "common/layout.html"%}
+{% block content %}
+    <style>
+        .center {
+            margin: auto;
+            width: 45%;
+            border: 1px solid #2b2d2f;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        img {
+            display: block;
+            margin: auto;
+            width: 40%;
+        }
+
+    </style>
+
+    <div class="panel panel-default">
+
+        <img class="center" src="{{ doc.original }}" class="img-responsive" alt="Responsive image">
+
+        {% for pics in doc.results %}
+
+            <!-- Default panel contents -->
+            <div class="panel-heading">Face </div>
+            <div class="panel-body">
+                <div class="center">
+                    <img src="{{ pics.img }}" class="img-responsive" alt="Responsive image">
+                    {{ doc.created_at }}
+                    {{ pics.emotion }}
+                </div>
+                <div class="panel panel-default">
+                </div>
+
+                <!-- Table -->
+
+            </div>
+
+
+        {% endfor %}
+
+        <table class="table">
+            <tr>
+                <th> Anger </th>
+                <th> Contempt </th>
+                <th> Disgust </th>
+                <th> Fear </th>
+                <th> Happiness </th>
+                <th> Neutral </th>
+                <th> Sadness </th>
+                <th> Surprise </th>
+            </tr>
+
+            <tr>
+                <td> {{ doc.Percentage["Anger"] }} </td>
+                <td> {{ doc.Percentage["Anger"] }} </td>
+                <td> {{ doc.Percentage["Anger"] }} </td>
+                <td> {{ doc.Percentage["Anger"] }} </td>
+                <td> {{ doc.Percentage["Anger"] }} </td>
+                <td> {{ doc.Percentage["Anger"] }} </td>
+                <td> {{ doc.Percentage["Anger"] }} </td>
+
+            </tr>
+
+        </table>
+
+
+    </div>
+
+{% endblock %}
+

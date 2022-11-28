@@ -227,9 +227,9 @@ def home():
 
     #return render_template('/photo/photo_demo.html')
 
-@index_page.route("/gallery")
+@index_page.route("/details")
 def gallery():
-    return ""
+    return render_template('/photo/details.html')
 
 '''
 @index_page.route('/upload', methods=['POST'])
