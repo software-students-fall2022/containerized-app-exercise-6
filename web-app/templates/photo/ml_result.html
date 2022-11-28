@@ -1,0 +1,29 @@
+<html>
+{% extends "common/layout.html"%}    
+{% block content %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ML Result</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../static/css/photo_demo.css">
+    </head>
+
+    <body>
+        {%for doc in docs%}
+        <hr>
+            original: <img src="{{doc.original}}" alt="image">
+            {{doc.original}}<br>
+            {{doc.results}}<br>
+            {{doc.Percentage}}<br>
+            {{doc.MaxEmotion}}<br>
+            {{doc.MinEmotion}}<br><br>
+        {%endfor%}
+        
+    </body>      
+{% endblock %}
+</html>
+
+
+

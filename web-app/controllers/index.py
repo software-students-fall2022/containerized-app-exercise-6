@@ -167,7 +167,7 @@ def find_min(collection):
 
         min = sys.maxsize
         for c in range(len(count_array)):
-            if (count_array[c] < min):
+            if (count_array[c] < min and count_array[c] > 0):
                 min = count_array[c]
 
         for i in range(len(count_array)):
@@ -187,6 +187,15 @@ def find_min(collection):
         collection.update_one({"_id" :ObjectId(docs_id)},{"$set":{"MinEmotion":output}})
     return output
 
+
+@index_page.route('/photo_page', methods=['POST'])
+def photo_page():
+    id = request.form.get('id')
+    #remove the last / from the id
+    id = id[:-1]
+    doc = db['Image'].find_one({"_id": ObjectId(id)})
+    return render_template('/photo/details.html', doc= doc)
+
 @index_page.route('/')
 def home():
     collection = db.Image
@@ -196,7 +205,7 @@ def home():
 
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
-    return render_template('/photo/photo_response_demo.html', docs = docs)
+    return render_template('/photo/test_result.html', docs = docs)
 '''
     doc = {
             "original": 'photo',
@@ -218,9 +227,9 @@ def home():
 
     #return render_template('/photo/photo_demo.html')
 
-@index_page.route("/gallery")
+@index_page.route("/details")
 def gallery():
-    return ""
+    return render_template('/photo/details.html')
 
 '''
 @index_page.route('/upload', methods=['POST'])
