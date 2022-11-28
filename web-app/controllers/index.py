@@ -196,7 +196,7 @@ def home():
 
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
-    return render_template('/photo/photo_response_demo.html', docs = docs)
+    return render_template('/photo/ml_result.html', docs = docs)
 '''
     doc = {
             "original": 'photo',
