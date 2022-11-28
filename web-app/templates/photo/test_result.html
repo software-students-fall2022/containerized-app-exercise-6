@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {%for doc in docs%}
-    {{doc.original}}<br>
-    {{doc.results}}<br>
-    {{doc.Percentage}}<br>
-    {{doc.MaxEmotion}}<br>
-    {{doc.MinEmotion}}<br><br>
-    {%endfor%}
-</head>
+
+
+{% extends "common/layout.html"%}
+{% block content %}
+
+<div class="row">
+{% for doc in docs %}
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <img src="{{ doc.original }}" alt="...">
+      <div class="caption">
+        <h3>{{ doc.created_at }}</h3>
+        <p><a href="ml_result.html" class="btn btn-primary" role="button" onclick = "localStorage.setItem('hello', doc)">Data</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+{% endblock %}
+
