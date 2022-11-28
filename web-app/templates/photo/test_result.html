@@ -10,7 +10,10 @@
       <img src="{{ doc.original }}" alt="...">
       <div class="caption">
         <h3>{{ doc.created_at }}</h3>
-        <p><a href="ml_result.html" class="btn btn-primary" role="button" onclick = "localStorage.setItem('hello', doc)">Data</a>
+        <form id="sub" action = "photo_page" method = "POST">
+          <p><a href="javascript:;" class="btn btn-primary" role="button" onclick = "document.getElementById('sub').submit();">Data</a>
+          <input type="hidden" name="id" value={{doc._id}}/>
+        </form>
       </div>
     </div>
   </div>

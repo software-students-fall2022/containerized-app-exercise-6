@@ -188,16 +188,13 @@ def find_min(collection):
     return output
 
 
-@index_page.route('/photo_page', methods=['GET'])
+@index_page.route('/photo_page', methods=['POST'])
 def photo_page():
-    collection = db.Image
-    percentage=compute_percentage(collection)
-    MaxNumber=find_max(collection)
-    MinNumber=find_min(collection)
-
-    docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-
-    return render_template('/photo/ml_result.html', docs = docs)
+    id = request.form.get('id')
+    #remove the last / from the id
+    id = id[:-1]
+    doc = db['Image'].find_one({"_id": ObjectId(id)})
+    return render_template('/photo/details.html', doc= doc)
 
 @index_page.route('/')
 def home():
