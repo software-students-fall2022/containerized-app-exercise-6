@@ -37,11 +37,33 @@
                 <div class="panel panel-default">
                 </div>
 
-                <!-- Table -->
-
             </div>
             {% set i.value = i.value + 1 %}
         {% endfor %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Max Emotion</div>
+            <div class="panel-body">
+                {% for emotion in doc.MaxEmotion %}
+                  <li class="list-group-item">
+                    <span class="badge"></span>
+                    {{ emotion }}
+                  </li>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Min Emotion</div>
+            <div class="panel-body">
+                {% for emotion in doc.MinEmotion %}
+                  <li class="list-group-item">
+                    <span class="badge">14</span>
+                    {{ emotion }}
+                  </li>
+                {% endfor %}
+            </div>
+        </div>
 
         <table class="table">
             <tr>
