@@ -22,10 +22,12 @@
 
         <img class="center" src="{{ doc.original }}" class="img-responsive" alt="Responsive image">
 
+        {% set i=namespace(value=1) %}
+
         {% for pics in doc.results %}
 
             <!-- Default panel contents -->
-            <div class="panel-heading">Face </div>
+            <div class="panel-heading"> Face {{ i.value }} </div>
             <div class="panel-body">
                 <div class="center">
                     <img src="{{ pics.img }}" class="img-responsive" alt="Responsive image">
@@ -38,8 +40,7 @@
                 <!-- Table -->
 
             </div>
-
-
+            {% set i.value = i.value + 1 %}
         {% endfor %}
 
         <table class="table">
@@ -67,7 +68,6 @@
             </tr>
 
         </table>
-
 
     </div>
 
