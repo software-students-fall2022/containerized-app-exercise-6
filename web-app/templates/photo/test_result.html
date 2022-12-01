@@ -1,5 +1,3 @@
-
-
 {% extends "common/layout.html"%}
 {% block content %}
 
@@ -12,6 +10,10 @@
         <h3>{{ doc.created_at }}</h3>
         <form id="sub{{doc._id}}" action = "photo_page" method = "POST">
           <p><a href="javascript:;" class="btn btn-primary" role="button" onclick = "document.getElementById('sub{{doc._id}}').submit();" style="margin: auto">Details</a>
+          <input type="hidden" name="id" value={{doc._id}}/>
+        </form>
+        <form id="sub{{doc._id}} + delete" action = "delete" method = "POST">
+          <p><a href="javascript:;" class="btn btn-primary" role="button" onclick = "document.getElementById('sub{{doc._id}} + delete').submit();" style="margin: auto">Delete</a>
           <input type="hidden" name="id" value={{doc._id}}/>
         </form>
       </div>
