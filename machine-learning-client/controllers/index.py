@@ -72,7 +72,6 @@ def face_detect(image_bytes):
     return result
    
 
-
 def get_emotion(image_bytes):
   model_name='enet_b0_8_best_afew'
   fer=HSEmotionRecognizer(model_name=model_name,device='cpu')
@@ -122,7 +121,4 @@ def upload():
         return render_template('/photo/result_page.html', results=results)
     else:
         return render_template('/photo/result_page.html', results=None)
-    
-   
-    
-
+        
