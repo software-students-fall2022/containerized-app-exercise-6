@@ -195,7 +195,7 @@ def photo_page():
     id = id[:-1]
     doc = db['Image'].find_one({"_id": ObjectId(id)})
     return render_template('/photo/details.html', doc= doc)
-
+   
 @index_page.route('/')
 def home():
     collection = db.Image
@@ -206,6 +206,16 @@ def home():
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
     return render_template('/photo/test_result.html', docs = docs)
+
+@index_page.route('/delete', methods=['POST'])
+def delete():
+    id = request.form.get('id')
+    #remove the last / from the id
+    id = id[:-1]
+    db['Image'].delete_one({"_id": ObjectId(id)})
+    
+    return redirect('/')
+
 '''
     doc = {
             "original": 'photo',
