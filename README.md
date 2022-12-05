@@ -52,6 +52,191 @@ cd machine-learning-client
 python -m pytest
 ```
 
+# Structure
+├── docker-compose.yaml
+├── .git
+│   ├── branches
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── push-to-checkout.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       ├── heads
+│   │       │   └── main
+│   │       └── remotes
+│   │           └── origin
+│   │               └── HEAD
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   │       ├── pack-9c42ea6a6b0284edd50769be6ee20d443e94b39c.idx
+│   │       └── pack-9c42ea6a6b0284edd50769be6ee20d443e94b39c.pack
+│   ├── packed-refs
+│   └── refs
+│       ├── heads
+│       │   └── main
+│       ├── remotes
+│       │   └── origin
+│       │       └── HEAD
+│       └── tags
+├── .github
+│   ├── .keep
+│   └── workflows
+│       ├── machine-learning.yml
+│       └── webapp.yml
+├── .gitignore
+├── instructions.md
+├── LICENSE
+├── machine-learning-client
+│   ├── app.py
+│   ├── common
+│   │   └── libs
+│   │       ├── __init__.py
+│   │       └── Url_Manager.py
+│   ├── config
+│   │   └── base_setting.py
+│   ├── controllers
+│   │   └── index.py
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── static
+│   │   ├── css
+│   │   │   └── photo_demo.css
+│   │   └── plugins
+│   │       ├── bootstrap_v3
+│   │       │   ├── css
+│   │       │   │   ├── bootstrap.css
+│   │       │   │   ├── bootstrap.css.map
+│   │       │   │   ├── bootstrap.min.css
+│   │       │   │   ├── bootstrap.min.css.map
+│   │       │   │   ├── bootstrap-theme.css
+│   │       │   │   ├── bootstrap-theme.css.map
+│   │       │   │   ├── bootstrap-theme.min.css
+│   │       │   │   └── bootstrap-theme.min.css.map
+│   │       │   ├── fonts
+│   │       │   │   ├── glyphicons-halflings-regular.eot
+│   │       │   │   ├── glyphicons-halflings-regular.svg
+│   │       │   │   ├── glyphicons-halflings-regular.ttf
+│   │       │   │   ├── glyphicons-halflings-regular.woff
+│   │       │   │   └── glyphicons-halflings-regular.woff2
+│   │       │   └── js
+│   │       │       ├── bootstrap.js
+│   │       │       ├── bootstrap.min.js
+│   │       │       └── npm.js
+│   │       ├── jquery.min.js
+│   │       └── layer
+│   │           ├── layer.js
+│   │           ├── mobile
+│   │           │   ├── layer.js
+│   │           │   └── need
+│   │           │       └── layer.css
+│   │           └── skin
+│   │               └── default
+│   │                   ├── icon-ext.png
+│   │                   ├── icon.png
+│   │                   ├── layer.css
+│   │                   ├── loading-0.gif
+│   │                   ├── loading-1.gif
+│   │                   └── loading-2.gif
+│   ├── templates
+│   │   ├── common
+│   │   │   └── layout.html
+│   │   ├── gallery
+│   │   │   └── gallery.html
+│   │   └── photo
+│   │       ├── main_page.html
+│   │       └── result_page.html
+│   └── tests
+│       ├── test_fear.jpg
+│       ├── test_group.jpg
+│       ├── test_happy.jpg
+│       ├── test_noface.jpg
+│       ├── test_sad.jpg
+│       └── test_test.py
+├── README.md
+├── s.txt
+└── web-app
+    ├── app.py
+    ├── common
+    │   └── libs
+    │       ├── __init__.py
+    │       └── Url_Manager.py
+    ├── config
+    │   └── base_setting.py
+    ├── controllers
+    │   ├── gallery.py
+    │   ├── index.py
+    │   └── __init__.py
+    ├── Dockerfile
+    ├── requirements.txt
+    ├── static
+    │   ├── css
+    │   │   └── photo_demo.css
+    │   └── plugins
+    │       ├── bootstrap_v3
+    │       │   ├── css
+    │       │   │   ├── bootstrap.css
+    │       │   │   ├── bootstrap.css.map
+    │       │   │   ├── bootstrap.min.css
+    │       │   │   ├── bootstrap.min.css.map
+    │       │   │   ├── bootstrap-theme.css
+    │       │   │   ├── bootstrap-theme.css.map
+    │       │   │   ├── bootstrap-theme.min.css
+    │       │   │   └── bootstrap-theme.min.css.map
+    │       │   ├── fonts
+    │       │   │   ├── glyphicons-halflings-regular.eot
+    │       │   │   ├── glyphicons-halflings-regular.svg
+    │       │   │   ├── glyphicons-halflings-regular.ttf
+    │       │   │   ├── glyphicons-halflings-regular.woff
+    │       │   │   └── glyphicons-halflings-regular.woff2
+    │       │   └── js
+    │       │       ├── bootstrap.js
+    │       │       ├── bootstrap.min.js
+    │       │       └── npm.js
+    │       ├── jquery.min.js
+    │       └── layer
+    │           ├── layer.js
+    │           ├── mobile
+    │           │   ├── layer.js
+    │           │   └── need
+    │           │       └── layer.css
+    │           └── skin
+    │               └── default
+    │                   ├── icon-ext.png
+    │                   ├── icon.png
+    │                   ├── layer.css
+    │                   ├── loading-0.gif
+    │                   ├── loading-1.gif
+    │                   └── loading-2.gif
+    ├── templates
+    │   ├── common
+    │   │   └── layout.html
+    │   └── photo
+    │       ├── details.html
+    │       └── index.html
+    └── tests
+        └── test_index.py
+
+
 # Contributors
 
 [Tim Chen](https://github.com/cty288)
