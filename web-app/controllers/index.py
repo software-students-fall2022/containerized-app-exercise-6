@@ -60,8 +60,8 @@ def analyze(collection):
     output=[0,0,0,0,0,0,0,0]
 
     for c in range(len(count_array)):
-
-        output[c]=count_array[c]/total
+        if total != 0:
+            output[c]=count_array[c]/total
     
     #print(output)
 
@@ -93,7 +93,7 @@ def analyze(collection):
 
     for key in output_dict.keys():
 
-        if output_dict[key] == maxPercentage:
+        if output_dict[key] == maxPercentage and maxPercentage != 0:
             
             key = key + " "
 
@@ -103,7 +103,7 @@ def analyze(collection):
     
     for key in output_dict.keys():
 
-        if output_dict[key] == minPercentage:
+        if output_dict[key] == minPercentage and minPercentage != 0:
 
             key = key + " "
 
