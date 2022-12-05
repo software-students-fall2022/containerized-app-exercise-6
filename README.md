@@ -64,6 +64,6 @@ python -m pytest
 
 [Iris Qian](https://github.com/okkiris)
 
-[Jiawei Zhang](https://github.com/jiawei-zhang-a)
-
 [Sagynbek Talgatuly](https://github.com/sagynbek001)
+
+[Jiawei Zhang](https://github.com/jiawei-zhang-a)
