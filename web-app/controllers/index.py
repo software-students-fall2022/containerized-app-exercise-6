@@ -24,6 +24,99 @@ else:
 
 db=client["Team6"]
 
+def analyze(collection):
+
+    emotion_dict={
+        'Anger':0,
+        'Contempt':1,
+        'Disgust':2,
+        'Fear':3,
+        'Happiness':4,
+        'Neutral':5,
+        'Sadness':6,
+        'Surprise':7
+    }
+    
+    docs = collection.find({}).sort("created_at", -1)
+   
+    
+    output = []
+    
+    total=0
+
+    count_array=[0,0,0,0,0,0,0,0]
+
+    for doc in docs:
+        
+        for result in doc['results']:
+
+            total += 1
+                
+            emotion = emotion_dict[result['emotion']]
+
+            count_array[emotion] += 1
+
+
+    output=[0,0,0,0,0,0,0,0]
+
+    for c in range(len(count_array)):
+
+        output[c]=count_array[c]/total
+    
+    #print(output)
+
+    key_list = list(emotion_dict.keys())
+
+    val_list = list(emotion_dict.values())
+
+    output_dict={}
+
+    for n in range(len(output)):
+
+        position = val_list.index(n)
+
+        output_dict[key_list[position]]=output[n]
+    
+    #print(output_dict)
+
+    maxPercentage = max(output)
+
+    minPercentage = min(output)
+
+    maxEmotion = []
+
+    minEmotion = []
+    
+    #print(minPercentage)
+
+    #print(maxPercentage)
+
+    for key in output_dict.keys():
+
+        if output_dict[key] == maxPercentage:
+            
+            key = key + " "
+
+            maxEmotion.append(key)
+            
+            #print(key)
+    
+    for key in output_dict.keys():
+
+        if output_dict[key] == minPercentage:
+
+            key = key + " "
+
+            minEmotion.append(key)
+
+
+    output_dict["MAX"] = "".join(maxEmotion)
+    
+    output_dict["MIN"] = "".join(minEmotion)
+
+    return output_dict
+
+
 def compute_percentage(collection):
 
     emotion_dict={
@@ -76,8 +169,6 @@ def compute_percentage(collection):
             position = val_list.index(n)
 
             output_dict[key_list[position]]=output[n]
-
-     
 
         collection.update_one({"_id" :ObjectId(docs_id)},{"$set":{"Percentage":output_dict}})
     return output
@@ -199,13 +290,14 @@ def photo_page():
 @index_page.route('/')
 def home():
     collection = db.Image
-    percentage=compute_percentage(collection)
-    MaxNumber=find_max(collection)
-    MinNumber=find_min(collection)
+    info=analyze(collection)
+    compute_percentage(collection)
+    find_max(collection)
+    find_min(collection)
 
     docs = db.Image.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
 
-    return render_template('/photo/test_result.html', docs = docs)
+    return render_template('/photo/index.html', docs = docs, analysis = info)
 
 @index_page.route('/delete', methods=['POST'])
 def delete():

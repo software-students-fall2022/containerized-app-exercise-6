@@ -24,6 +24,39 @@
             </div>
         {% endfor %}
     </div>
+    
+    <div class="panel panel-default">
+        <h1>Overall Analysis</h1>
+        <table class="table">
+            <tr>
+                <th> Anger </th>
+                <th> Contempt </th>
+                <th> Disgust </th>
+                <th> Fear </th>
+                <th> Happiness </th>
+                <th> Neutral </th>
+                <th> Sadness </th>
+                <th> Surprise </th>
+                <th> MAX </th>
+                <th> MIN </th>
+            </tr>
 
+            <tr>
+                <td> {{ analysis["Anger"] }} </td>
+                <td> {{ analysis["Contempt"] }} </td>
+                <td> {{ analysis["Disgust"] }} </td>
+                <td> {{ analysis["Fear"] }} </td>
+                <td> {{ analysis["Happiness"] }} </td>
+                <td> {{ analysis["Neutral"] }} </td>
+                <td> {{ analysis["Sadness"] }} </td>
+                <td> {{ analysis["Surprise"] }} </td>
+                <td> {{ analysis["MAX"] }} </td>
+                <td> {{ analysis["MIN"] }} </td>
+
+            </tr>
+
+        </table>
+
+    </div>
 {% endblock %}
 

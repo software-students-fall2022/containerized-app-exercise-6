@@ -8,6 +8,26 @@ from controllers import index
 #import index
 import pymongo
 
+def test_analyze():
+
+    client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
+
+    db = client["Team6"]
+
+    info = index.analyze(db.TestImage)
+
+    print(info)
+
+    expected_result = [0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 0.2222222222222222, 0.1111111111111111, 0.1111111111111111, 0.1111111111111111, 'Happiness ', 'Anger Contempt Disgust Fear Neutral Sadness Surprise ']
+
+    i = 0
+
+    for key in info.keys():
+
+        assert info[key]==expected_result[i], "The output percentage is not correct"
+
+        i += 1
+
 def test_percentage():
 
     client = pymongo.MongoClient("mongodb+srv://okkiris:F3iQz3hSCxOwhhOu@cluster0.ubegai3.mongodb.net/?retryWrites=true&w=majority")
